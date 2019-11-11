@@ -28,7 +28,7 @@ func makeProgram(startCalled, stopCalled, initCalled *int) *mockProgram {
 			return nil
 		},
 		init: func(env Environment) error {
-			*startCalled++
+			*initCalled++
 			return nil
 		},
 	}

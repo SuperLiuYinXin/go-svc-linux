@@ -11,7 +11,6 @@ func TestDefaultSignalHandling(t *testing.T) {
 	signals := []os.Signal{syscall.SIGINT, syscall.SIGTERM}
 	for _, signal := range signals {
 		testSignalNotify(t, signal)
-
 	}
 }
 
@@ -20,8 +19,6 @@ func testSignalNotify(t *testing.T, signal os.Signal, sig ...os.Signal) {
 	sigChan := make(chan os.Signal)
 
 	var startCalled, stopCalled, initCalled int
-
-	prg := makeProgram(&startCalled, &stopCalled, &initCalled)
 
 	signalNotify = func(c chan<- os.Signal, sig ...os.Signal) {
 		if c == nil {
@@ -37,6 +34,8 @@ func testSignalNotify(t *testing.T, signal os.Signal, sig ...os.Signal) {
 			}
 		}()
 	}
+
+	prg := makeProgram(&startCalled, &stopCalled, &initCalled)
 
 	go func() {
 		sigChan <- signal
